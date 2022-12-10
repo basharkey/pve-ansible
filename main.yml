@@ -5,4 +5,5 @@
   roles:
     - { role: "postfix", tags: "install" }
     - { role: "smartd", tags: "install" }
+    - { role: "zfs-auto-snapshot", tags: "install" }
     - { role: "zfs-scrub", tags: "install" }

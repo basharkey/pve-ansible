@@ -1,0 +1,19 @@
+---
+- name: Check if zfs-auto-snapshot is installed
+  stat:
+    path: /usr/local/sbin/zfs-auto-snapshot
+  register: zfs_auto_snapshot
+
+- name: Install zfs-auto-snapshot
+  when: not zfs_auto_snapshot.stat.exists
+  block:
+    - name: Download and extract zfs-auto-snapshot
+      unarchive:
+        src: https://github.com/zfsonlinux/zfs-auto-snapshot/archive/upstream/1.2.4.tar.gz
+        dest: /tmp
+        remote_src: yes
+    
+    - name: Make install zfs-auto-snapshot
+      command: make install
+      args:
+        chdir: /tmp/zfs-auto-snapshot-upstream-1.2.4
