@@ -1,0 +1,34 @@
+---
+- name: Install postfix and dependencies
+  apt:
+    name:
+      - postfix
+      - libsasl2-modules
+    state: present
+
+- name: Template postfix config
+  template:
+    src: main.cf.j2
+    dest: /etc/postfix/main.cf
+    mode: 0644
+
+- name: Template postfix from header rewriter
+  template:
+    src: header_check.j2
+    dest: /etc/postfix/header_check
+    mode: 0644
+
+- name: Template postfix sasl password
+  template:
+    src: sasl_passwd.j2
+    dest: /etc/postfix/sasl_passwd
+    mode: 0600
+
+- name: Add postfix email password to postmap
+  command: postmap /etc/postfix/sasl_passwd
+
+- name: Restart and enable postfix service
+  systemd:
+    name: postfix.service
+    state: restarted
+    enabled: yes

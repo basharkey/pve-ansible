@@ -1,0 +1,9 @@
+relayhost = {{ postfix_smtp_server }}:{{ postfix_smtp_port  }}
+smtp_header_checks = regexp:/etc/postfix/header_check
+
+smtp_use_tls = yes
+smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+
+smtp_sasl_auth_enable = yes
+smtp_sasl_security_options = noanonymous
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd

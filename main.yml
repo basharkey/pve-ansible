@@ -3,6 +3,6 @@
   become: yes
 
   roles:
-    - { role: "msmtp", tags: "install" }
+    - { role: "postfix", tags: "install" }
     - { role: "smartd", tags: "install" }
     - { role: "zfs-scrub", tags: "install" }

@@ -1,2 +1,2 @@
 ---
-msmtp_email_passwd:
+postfix_email_passwd:
