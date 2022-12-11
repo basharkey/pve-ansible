@@ -1,4 +1,9 @@
 ---
+- name: Install make
+  apt:
+    name: make
+    state: present
+
 - name: Check if zfs-auto-snapshot is installed
   stat:
     path: /usr/local/sbin/zfs-auto-snapshot
