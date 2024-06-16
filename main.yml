@@ -2,6 +2,12 @@
 - hosts: all
   become: yes
 
+  pre_tasks:
+    - name: Load playbook config
+      include_vars: "{{ item }}"
+      with_fileglob:
+        - "{{ playbook_dir }}/config.yml"
+
   roles:
     - { role: "postfix", tags: "install" }
     - { role: "smartd", tags: "install" }
