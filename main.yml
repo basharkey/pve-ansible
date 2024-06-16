@@ -9,7 +9,7 @@
         - "{{ playbook_dir }}/config.yml"
 
   roles:
-    - { role: "postfix", tags: "install" }
-    - { role: "smartd", tags: "install" }
-    - { role: "zfs-auto-snapshot", tags: "install" }
-    - { role: "zfs-scrub", tags: "install" }
+    - postfix
+    - smartd
+    - zfs-auto-snapshot
+    - zfs-scrub
