@@ -1,11 +1,4 @@
 # PVE Ansible
-Proxmox Virtual Envrionment deployment playbook.
-
-1. Update variables in [hosts.yml](hosts.yml)
-2. Update variables in [vault.yml](vault.yml)
-3. `make vault` to encrypt [vault.yml](vault.yml)
-4. Create/import ZFS pool ensure `zpool` value in [hosts.yml](hosts.yml) is correct
-5. `make install` to run playbook
 
 # ZFS
 ## Create Pool 
