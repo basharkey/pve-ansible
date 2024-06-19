@@ -1,0 +1,20 @@
+---
+- name: Remove Proxmox enterprise repository
+  apt_repository:
+    repo: "deb https://enterprise.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-enterprise"
+    filename: pve-enterprise
+    state: absent
+    update_cache: false
+
+- name: Remove Proxmox enterprise ceph repository
+  apt_repository:
+    repo: "deb https://enterprise.proxmox.com/debian/ceph-quincy {{ ansible_distribution_release }} enterprise"
+    filename: ceph
+    state: absent
+    update_cache: false
+
+- name: Add Proxmox no subscription repository
+  apt_repository:
+    repo: "deb https://download.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-no-subscription"
+    filename: pve-no-subscription
+    state: present

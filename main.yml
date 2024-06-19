@@ -9,6 +9,7 @@
         - "{{ playbook_dir }}/config.yml"
 
   roles:
+    - apt
     - postfix
     - smartd
     - zfs-auto-snapshot
