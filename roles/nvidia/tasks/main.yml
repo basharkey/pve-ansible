@@ -1,0 +1,42 @@
+---
+- name: Install nvidia drivers
+  when: install_nvidia_drivers
+  block:
+    - name: Check if nvidia driver is installed
+      block:
+        - name: Check for nvidia-smi binary
+          command: which nvidia-smi
+
+      rescue:
+        - name: Download nvidia driver
+          get_url:
+            url: "https://us.download.nvidia.com/XFree86/Linux-x86_64/{{ nvidia_driver_version }}/NVIDIA-Linux-x86_64-{{ nvidia_driver_version }}.run"
+            dest: "/root/NVIDIA-Linux-x86_64-{{ nvidia_driver_version }}.run"
+            mode: '0755'
+
+        - name: Install nvidia driver for bare metal
+          block:
+            - name: Install dkms
+              apt:
+                update_cache: yes
+                name:
+                  - dkms
+                  - libc6-dev
+                  - proxmox-default-headers
+                install_recommends: no
+                state: present
+
+            - name: Get running kernel version
+              command: uname -r
+              register: kernel
+
+            - name: Get kernel headers verison
+              shell: apt list --installed | grep -e 'proxmox-headers-.*-pve' | cut -d '/' -f 1 | cut -d '-' -f 3-
+              register: headers
+
+            - name: Reboot if current running kernel doesn't match latest kernel headers
+              when: kernel.stdout != headers.stdout
+              reboot:
+
+            - name: Install nvidia driver with dkms
+              shell: "/root/NVIDIA-Linux-x86_64-{{ nvidia_driver_version }}.run --silent --no-nouveau-check --dkms" 

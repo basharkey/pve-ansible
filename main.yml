@@ -14,3 +14,4 @@
     - smartd
     - zfs-auto-snapshot
     - zfs-scrub
+    - nvidia

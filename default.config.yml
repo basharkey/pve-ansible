@@ -5,6 +5,8 @@ postfix_email: example-notif@outlook.com  # sender address for email alerts
 postfix_smtp_server: smtp.office365.com   # sender address SMTP server
 postfix_smtp_port: 587                    # sender address SMTP server port
 
+install_nvidia_drivers: no
+
 smartd_monitored_disks:
 - /dev/sda
 - /dev/sdb
