@@ -20,3 +20,13 @@ zfs list -o encryption,compression,mountpoint
 ```
 zfs mount -l pool0/encrypted
 ```
+
+# Resize local-lvm (LVM-Thin)
+lvremove /dev/pve/data
+lvresize -L +100G /dev/pve/root
+resize2fs /dev/mapper/pve-root
+
+lvcreate -l +98%FREE -n data pve
+lvconvert --type thin-pool pve/data
+
+Re-add local-lvm in web UI Datacenter > Storage > Add > LVM-Thin
