@@ -30,6 +30,7 @@
               command: uname -r
               register: kernel
 
+              # This grabs all of them installed not latest (bug)
             - name: Get kernel headers verison
               shell: apt list --installed | grep -e 'proxmox-headers-.*-pve' | cut -d '/' -f 1 | cut -d '-' -f 3-
               register: headers
